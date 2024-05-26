@@ -1,12 +1,13 @@
 import os
 import zlib
 import hashlib
-from utils import (
-    repo_file
-)
-from core.GitRepository import GitRepository
+from core.GitRepository import GitRepository, repo_file
 from io import BufferedReader
-from typing import Optional
+from typing import Optional, List, Tuple
+from core.gitObject.GitBlob import GitBlob
+from core.gitObject.GitCommit import GitCommit
+from core.gitObject.GitTree import GitTree
+from core.gitObject.GitTag import GitTag
 
 
 class GitObject (object):
@@ -31,14 +32,7 @@ class GitObject (object):
         pass # Just do nothing. This is a reasonable default!
 
 
-class GitBlob(GitObject):
-    fmt=b'blob'
 
-    def serialize(self):
-        return self.blobdata
-
-    def deserialize(self, data):
-        self.blobdata = data
 
 
 def object_read(repo: GitRepository, sha: str) -> Optional[GitObject]:

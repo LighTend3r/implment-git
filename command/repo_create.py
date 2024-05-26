@@ -1,10 +1,9 @@
 import os
-from core.GitRepository import GitRepository
-from utils import (
+import configparser
+from core.GitRepository import (
+    GitRepository,
     repo_dir,
     repo_file,
-    repo_default_config,
-
 )
 
 def repo_create(path):
@@ -41,3 +40,13 @@ def repo_create(path):
         config.write(f)
 
     return repo
+
+def repo_default_config():
+    ret = configparser.ConfigParser()
+
+    ret.add_section("core")
+    ret.set("core", "repositoryformatversion", "0")
+    ret.set("core", "filemode", "false")
+    ret.set("core", "bare", "false")
+
+    return ret
